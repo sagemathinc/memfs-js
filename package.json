@@ -1,12 +1,10 @@
 {
-  "name": "memfs",
-  "version": "3.4.7",
+  "name": "memfs-js",
+  "version": "3.4.8",
   "description": "In-memory file-system with Node's fs API.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "scripts": {
     "clean": "rimraf lib types",
     "build": "tsc -p . && cp src/getBigInt.js lib/",
@@ -20,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/streamich/memfs.git"
+    "url": "https://github.com/sagemathinc/memfs-js.git"
   },
   "dependencies": {
     "fs-monkey": "^1.0.3"
@@ -49,12 +47,7 @@
     }
   },
   "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
     "testEnvironment": "node",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
