@@ -1,6 +1,20 @@
 # memfs
 
-This is a fork of https://www.npmjs.com/package/memfs, since there's a bunch of critical bugs there, which might not be a priority for that project, but are definitely a priority for me (though I'm sending PR's).  See https://github.com/sagemathinc/memfs-js
+This is a fork of https://www.npmjs.com/package/memfs, since there's a bunch of critical bugs and missing maintenance there, which might not be a priority for that project, but are definitely a priority for me (though I'm sending PR's).   Upstream memfs has nearly 12 million downloads a week, so I can see why doing these changes would be really scary there!
+
+Things I've done here include:
+
+- update to newest jest, and increase maxWorkers for testing; fix an issue with one test
+- update to newest typescript and node typings
+- update target to es2020 from es5; this does make code run more efficiently and is much easier to debug if you want to directly edit node_modules
+- fix the 13 security vulnerabilities revealed by npm audit
+- upgrade prettier and switch to using the defaults
+- switch to package-lock.json instead of yarn's lock
+- fix chmodSync bug
+- fix utimesSync bug
+- fix realpathSync bug
+
+See https://github.com/sagemathinc/memfs-js
 
 ---
 
