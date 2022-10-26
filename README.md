@@ -13,6 +13,7 @@ Things I've done here include:
 - fix chmodSync bug
 - fix utimesSync bug
 - fix realpathSync bug
+- fixed semantics so adding/removing files from a path updates the path timestamp
 
 See https://github.com/sagemathinc/memfs-js
 
