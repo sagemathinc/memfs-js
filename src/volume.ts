@@ -478,7 +478,7 @@ export function pathToSteps(path: PathLike): string[] {
 
 export function dataToStr(
   data: TData,
-  encoding: string = ENCODING_UTF8
+  encoding: BufferEncoding = ENCODING_UTF8
 ): string {
   if (Buffer.isBuffer(data)) return data.toString(encoding);
   else if (data instanceof Uint8Array)
@@ -488,11 +488,16 @@ export function dataToStr(
 
 export function dataToBuffer(
   data: TData,
-  encoding: string = ENCODING_UTF8
+  encoding: BufferEncoding | TEncodingExtended = ENCODING_UTF8
 ): Buffer {
-  if (Buffer.isBuffer(data)) return data;
-  else if (data instanceof Uint8Array) return bufferFrom(data);
-  else return bufferFrom(String(data), encoding);
+  if (Buffer.isBuffer(data)) {
+    return data;
+  } else if (data instanceof Uint8Array) {
+    return bufferFrom(data);
+  } else {
+    // This "encoding as ..." is a little bit of a cheat.
+    return bufferFrom(String(data), encoding as BufferEncoding);
+  }
 }
 
 export function bufferToEncoding(

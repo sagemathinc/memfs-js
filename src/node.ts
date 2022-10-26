@@ -46,7 +46,7 @@ export class Node extends EventEmitter {
     this.ino = ino;
   }
 
-  getString(encoding = "utf8"): string {
+  getString(encoding: BufferEncoding = "utf8"): string {
     return this.getBuffer().toString(encoding);
   }
 

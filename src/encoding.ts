@@ -6,7 +6,7 @@ export type TEncodingExtended = BufferEncoding | "buffer";
 
 export const ENCODING_UTF8: BufferEncoding = "utf8";
 
-export function assertEncoding(encoding: string | undefined) {
+export function assertEncoding(encoding: BufferEncoding | undefined) {
   if (encoding && !Buffer.isEncoding(encoding))
     throw new errors.TypeError("ERR_INVALID_OPT_VALUE_ENCODING", encoding);
 }
