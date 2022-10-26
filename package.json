@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rimraf lib types",
     "build": "tsc -p . && cp src/getBigInt.js lib/",
-    "test": "jest --maxWorkers 2",
+    "test": "jest --maxWorkers 8",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "watch": "watch \"npm run build\" ./src",
