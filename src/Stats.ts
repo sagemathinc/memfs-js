@@ -1,8 +1,17 @@
-import { Node } from './node';
-import { constants } from './constants';
-import getBigInt from './getBigInt';
+import { Node } from "./node";
+import { constants } from "./constants";
+import getBigInt from "./getBigInt";
 
-const { S_IFMT, S_IFDIR, S_IFREG, S_IFBLK, S_IFCHR, S_IFLNK, S_IFIFO, S_IFSOCK } = constants;
+const {
+  S_IFMT,
+  S_IFDIR,
+  S_IFREG,
+  S_IFBLK,
+  S_IFCHR,
+  S_IFLNK,
+  S_IFIFO,
+  S_IFSOCK,
+} = constants;
 
 export type TStatNumber = number | bigint;
 
@@ -17,7 +26,7 @@ export class Stats<T = TStatNumber> {
     const stats = new Stats<TStatNumber>();
     const { uid, gid, atime, mtime, ctime } = node;
 
-    const getStatNumber = !bigint ? number => number : getBigInt;
+    const getStatNumber = !bigint ? (number) => number : getBigInt;
 
     // Copy all values on Stats from Node, so that if Node values
     // change, values on Stats would still be the old ones,

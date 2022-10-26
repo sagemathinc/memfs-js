@@ -1,14 +1,14 @@
-import { create } from '../util';
-import { constants } from '../../constants';
+import { create } from "../util";
+import { constants } from "../../constants";
 
-describe('copyFileSync(src, dest[, flags])', () => {
-  it('method exists', () => {
+describe("copyFileSync(src, dest[, flags])", () => {
+  it("method exists", () => {
     const vol = create();
 
-    expect(typeof vol.copyFileSync).toBe('function');
+    expect(typeof vol.copyFileSync).toBe("function");
   });
 
-  it('throws on incorrect path arguments', () => {
+  it("throws on incorrect path arguments", () => {
     const vol = create();
 
     expect(() => {
@@ -28,67 +28,67 @@ describe('copyFileSync(src, dest[, flags])', () => {
     }).toThrow();
   });
 
-  it('copies file', () => {
+  it("copies file", () => {
     const vol = create({
-      '/foo': 'hello world',
+      "/foo": "hello world",
     });
 
-    vol.copyFileSync('/foo', '/bar');
+    vol.copyFileSync("/foo", "/bar");
 
-    expect(vol.readFileSync('/bar', 'utf8')).toBe('hello world');
+    expect(vol.readFileSync("/bar", "utf8")).toBe("hello world");
   });
 
-  describe('when COPYFILE_EXCL flag set', () => {
-    it('should copy file, if destination does not exit', () => {
+  describe("when COPYFILE_EXCL flag set", () => {
+    it("should copy file, if destination does not exit", () => {
       const vol = create({
-        '/foo': 'hello world',
+        "/foo": "hello world",
       });
 
-      vol.copyFileSync('/foo', '/bar', constants.COPYFILE_EXCL);
+      vol.copyFileSync("/foo", "/bar", constants.COPYFILE_EXCL);
 
-      expect(vol.readFileSync('/foo', 'utf8')).toBe('hello world');
-      expect(vol.readFileSync('/bar', 'utf8')).toBe('hello world');
+      expect(vol.readFileSync("/foo", "utf8")).toBe("hello world");
+      expect(vol.readFileSync("/bar", "utf8")).toBe("hello world");
     });
 
-    it('should throw, if file already exists', () => {
+    it("should throw, if file already exists", () => {
       const vol = create({
-        '/foo': 'hello world',
-        '/bar': 'no hello',
+        "/foo": "hello world",
+        "/bar": "no hello",
       });
 
       expect(() => {
-        vol.copyFileSync('/foo', '/bar', constants.COPYFILE_EXCL);
+        vol.copyFileSync("/foo", "/bar", constants.COPYFILE_EXCL);
       }).toThrowError(/EEXIST/);
 
-      expect(vol.readFileSync('/foo', 'utf8')).toBe('hello world');
-      expect(vol.readFileSync('/bar', 'utf8')).toBe('no hello');
+      expect(vol.readFileSync("/foo", "utf8")).toBe("hello world");
+      expect(vol.readFileSync("/bar", "utf8")).toBe("no hello");
     });
   });
 
-  describe('when COPYFILE_FICLONE flag set', () => {
-    it('copies file', () => {
+  describe("when COPYFILE_FICLONE flag set", () => {
+    it("copies file", () => {
       const vol = create({
-        '/foo': 'hello world',
+        "/foo": "hello world",
       });
 
-      vol.copyFileSync('/foo', '/bar', constants.COPYFILE_FICLONE);
+      vol.copyFileSync("/foo", "/bar", constants.COPYFILE_FICLONE);
 
-      expect(vol.readFileSync('/foo', 'utf8')).toBe('hello world');
-      expect(vol.readFileSync('/bar', 'utf8')).toBe('hello world');
+      expect(vol.readFileSync("/foo", "utf8")).toBe("hello world");
+      expect(vol.readFileSync("/bar", "utf8")).toBe("hello world");
     });
   });
 
-  describe('when COPYFILE_FICLONE_FORCE flag set', () => {
-    it('always fails with ENOSYS', () => {
+  describe("when COPYFILE_FICLONE_FORCE flag set", () => {
+    it("always fails with ENOSYS", () => {
       const vol = create({
-        '/foo': 'hello world',
+        "/foo": "hello world",
       });
 
       expect(() => {
-        vol.copyFileSync('/foo', '/bar', constants.COPYFILE_FICLONE_FORCE);
+        vol.copyFileSync("/foo", "/bar", constants.COPYFILE_FICLONE_FORCE);
       }).toThrowError(/ENOSYS/);
 
-      expect(vol.readFileSync('/foo', 'utf8')).toBe('hello world');
+      expect(vol.readFileSync("/foo", "utf8")).toBe("hello world");
     });
   });
 });

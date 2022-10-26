@@ -1,5 +1,5 @@
-import { Volume } from './volume';
-import { Link, Node } from './node';
+import { Volume } from "./volume";
+import { Link, Node } from "./node";
 
 export interface IStore {
   setItem(key: string, json);
@@ -29,7 +29,10 @@ export class ObjectStore {
   }
 }
 
-export function createVolume(namespace: string, LS: IStore | object = localStorage): new (...args) => Volume {
+export function createVolume(
+  namespace: string,
+  LS: IStore | object = localStorage
+): new (...args) => Volume {
   const store = new ObjectStore(LS);
   const key = (type, id) => `memfs.${namespace}.${type}.${id}`;
 
@@ -37,7 +40,7 @@ export function createVolume(namespace: string, LS: IStore | object = localStora
     private _key: string;
 
     get Key(): string {
-      if (!this._key) this._key = key('ino', this.ino);
+      if (!this._key) this._key = key("ino", this.ino);
       return this._key;
     }
 
@@ -60,7 +63,7 @@ export function createVolume(namespace: string, LS: IStore | object = localStora
     private _key: string;
 
     get Key(): string {
-      if (!this._key) this._key = key('link', this.getPath());
+      if (!this._key) this._key = key("link", this.getPath());
       return this._key;
     }
 
@@ -79,12 +82,12 @@ export function createVolume(namespace: string, LS: IStore | object = localStora
 
     createLink(parent?, name?, isDirectory?, perm?) {
       const link = super.createLink(parent, name, isDirectory, perm);
-      store.setItem(key('link', link.getPath()), link.toJSON());
+      store.setItem(key("link", link.getPath()), link.toJSON());
       return link;
     }
 
     deleteLink(link) {
-      store.removeItem(key('link', link.getPath()));
+      store.removeItem(key("link", link.getPath()));
       return super.deleteLink(link);
     }
   };

@@ -24,12 +24,12 @@ export interface IProcess {
  * @return {IProcess | undefined}
  */
 const maybeReturnProcess = (): IProcess | undefined => {
-  if (typeof process !== 'undefined') {
+  if (typeof process !== "undefined") {
     return process;
   }
 
   try {
-    return require('process');
+    return require("process");
   } catch {
     return undefined;
   }
@@ -38,12 +38,12 @@ const maybeReturnProcess = (): IProcess | undefined => {
 export function createProcess(): IProcess {
   const p: IProcess = maybeReturnProcess() || ({} as IProcess);
 
-  if (!p.cwd) p.cwd = () => '/';
-  if (!p.nextTick) p.nextTick = require('./setImmediate').default;
+  if (!p.cwd) p.cwd = () => "/";
+  if (!p.nextTick) p.nextTick = require("./setImmediate").default;
   if (!p.emitWarning)
     p.emitWarning = (message, type) => {
       // tslint:disable-next-line:no-console
-      console.warn(`${type}${type ? ': ' : ''}${message}`);
+      console.warn(`${type}${type ? ": " : ""}${message}`);
     };
   if (!p.env) p.env = {};
   return p;

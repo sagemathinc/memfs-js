@@ -1,30 +1,30 @@
-import { create } from '../util';
+import { create } from "../util";
 
-describe('mkdirSync', () => {
-  it('can create a directory', () => {
+describe("mkdirSync", () => {
+  it("can create a directory", () => {
     const vol = create();
 
-    vol.mkdirSync('/new-dir');
-    const stat = vol.statSync('/new-dir');
+    vol.mkdirSync("/new-dir");
+    const stat = vol.statSync("/new-dir");
 
     expect(stat.isDirectory()).toBe(true);
   });
 
-  it('root directory is directory', () => {
+  it("root directory is directory", () => {
     const vol = create();
-    const stat = vol.statSync('/');
+    const stat = vol.statSync("/");
 
     expect(stat.isDirectory()).toBe(true);
   });
 
-  it('throws when re-creating existing directory', () => {
+  it("throws when re-creating existing directory", () => {
     const vol = create();
 
-    vol.mkdirSync('/new-dir');
+    vol.mkdirSync("/new-dir");
 
     let error;
     try {
-      vol.mkdirSync('/new-dir');
+      vol.mkdirSync("/new-dir");
     } catch (err) {
       error = err;
     }
@@ -37,12 +37,12 @@ describe('mkdirSync', () => {
    * See issue #325
    * https://github.com/streamich/memfs/issues/325
    */
-  it('throws when creating root directory', () => {
+  it("throws when creating root directory", () => {
     const vol = create();
 
     let error;
     try {
-      vol.mkdirSync('/');
+      vol.mkdirSync("/");
     } catch (err) {
       error = err;
     }

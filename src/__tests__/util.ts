@@ -1,7 +1,7 @@
-import { createFsFromVolume, Volume } from '..';
-import { Link, Node } from '../node';
+import { createFsFromVolume, Volume } from "..";
+import { Link, Node } from "../node";
 
-export const create = (json: { [s: string]: string } = { '/foo': 'bar' }) => {
+export const create = (json: { [s: string]: string } = { "/foo": "bar" }) => {
   const vol = Volume.fromJSON(json);
   return vol;
 };
@@ -20,4 +20,5 @@ export const tryGetChild = (link: Link, name: string): Link => {
   return child;
 };
 
-export const tryGetChildNode = (link: Link, name: string): Node => tryGetChild(link, name).getNode();
+export const tryGetChildNode = (link: Link, name: string): Node =>
+  tryGetChild(link, name).getNode();

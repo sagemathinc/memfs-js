@@ -1,20 +1,20 @@
-import _process, { createProcess } from '../process';
+import _process, { createProcess } from "../process";
 
-describe('process', () => {
-  describe('createProcess', () => {
+describe("process", () => {
+  describe("createProcess", () => {
     const proc = createProcess();
-    it('Exports default object', () => {
-      expect(typeof _process).toBe('object');
+    it("Exports default object", () => {
+      expect(typeof _process).toBe("object");
     });
-    it('.cwd()', () => {
-      expect(typeof proc.cwd()).toBe('string');
+    it(".cwd()", () => {
+      expect(typeof proc.cwd()).toBe("string");
     });
-    it('.nextTick()', done => {
-      expect(typeof proc.nextTick).toBe('function');
+    it(".nextTick()", (done) => {
+      expect(typeof proc.nextTick).toBe("function");
       proc.nextTick(done);
     });
-    it('.env', () => {
-      expect(typeof proc.env).toBe('object');
+    it(".env", () => {
+      expect(typeof proc.env).toBe("object");
     });
   });
 });

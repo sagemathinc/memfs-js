@@ -1,8 +1,17 @@
-import { Link } from './node';
-import { constants } from './constants';
-import { TEncodingExtended, strToEncoding, TDataOut } from './encoding';
+import { Link } from "./node";
+import { constants } from "./constants";
+import { TEncodingExtended, strToEncoding, TDataOut } from "./encoding";
 
-const { S_IFMT, S_IFDIR, S_IFREG, S_IFBLK, S_IFCHR, S_IFLNK, S_IFIFO, S_IFSOCK } = constants;
+const {
+  S_IFMT,
+  S_IFDIR,
+  S_IFREG,
+  S_IFBLK,
+  S_IFCHR,
+  S_IFLNK,
+  S_IFIFO,
+  S_IFSOCK,
+} = constants;
 
 /**
  * A directory entry, like `fs.Dirent`.
@@ -18,7 +27,7 @@ export class Dirent {
     return dirent;
   }
 
-  name: TDataOut = '';
+  name: TDataOut = "";
   private mode: number = 0;
 
   private _checkModeProperty(property: number): boolean {

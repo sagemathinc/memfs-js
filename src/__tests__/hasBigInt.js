@@ -1,1 +1,1 @@
-exports.default = typeof BigInt === 'function';
+exports.default = typeof BigInt === "function";

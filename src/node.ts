@@ -1,15 +1,15 @@
-import process from './process';
-import { bufferAllocUnsafe, bufferFrom } from './internal/buffer';
-import { constants, S } from './constants';
-import { Volume } from './volume';
-import { EventEmitter } from 'events';
-import Stats from './Stats';
+import process from "./process";
+import { bufferAllocUnsafe, bufferFrom } from "./internal/buffer";
+import { constants, S } from "./constants";
+import { Volume } from "./volume";
+import { EventEmitter } from "events";
+import Stats from "./Stats";
 
 const { S_IFMT, S_IFDIR, S_IFREG, S_IFLNK, O_APPEND } = constants;
 const getuid = (): number => process.getuid?.() ?? 0;
 const getgid = (): number => process.getgid?.() ?? 0;
 
-export const SEP = '/';
+export const SEP = "/";
 
 /**
  * Node in a file system (like i-node, v-node).
@@ -46,13 +46,13 @@ export class Node extends EventEmitter {
     this.ino = ino;
   }
 
-  getString(encoding = 'utf8'): string {
+  getString(encoding = "utf8"): string {
     return this.getBuffer().toString(encoding);
   }
 
   setString(str: string) {
     // this.setBuffer(bufferFrom(str, 'utf8'));
-    this.buf = bufferFrom(str, 'utf8');
+    this.buf = bufferFrom(str, "utf8");
     this.touch();
   }
 
@@ -104,7 +104,12 @@ export class Node extends EventEmitter {
     this.setIsSymlink();
   }
 
-  write(buf: Buffer, off: number = 0, len: number = buf.length, pos: number = 0): number {
+  write(
+    buf: Buffer,
+    off: number = 0,
+    len: number = buf.length,
+    pos: number = 0
+  ): number {
     if (!this.buf) this.buf = bufferAllocUnsafe(0);
 
     if (pos + len > this.buf.length) {
@@ -121,7 +126,12 @@ export class Node extends EventEmitter {
   }
 
   // Returns the number of bytes read.
-  read(buf: Buffer | Uint8Array, off: number = 0, len: number = buf.byteLength, pos: number = 0): number {
+  read(
+    buf: Buffer | Uint8Array,
+    off: number = 0,
+    len: number = buf.byteLength,
+    pos: number = 0
+  ): number {
     if (!this.buf) this.buf = bufferAllocUnsafe(0);
 
     let actualLen = len;
@@ -166,7 +176,7 @@ export class Node extends EventEmitter {
 
   touch() {
     this.mtime = new Date();
-    this.emit('change', this);
+    this.emit("change", this);
   }
 
   canRead(uid: number = getuid(), gid: number = getgid()): boolean {
@@ -210,7 +220,7 @@ export class Node extends EventEmitter {
   }
 
   del() {
-    this.emit('delete', this);
+    this.emit("delete", this);
   }
 
   toJSON() {
@@ -304,7 +314,7 @@ export class Link extends EventEmitter {
     link.parent = this;
     this.length++;
 
-    this.emit('child:add', link, this);
+    this.emit("child:add", link, this);
 
     return link;
   }
@@ -313,7 +323,7 @@ export class Link extends EventEmitter {
     delete this.children[link.getName()];
     this.length--;
 
-    this.emit('child:delete', link, this);
+    this.emit("child:delete", link, this);
   }
 
   getChild(name: string): Link | undefined {
@@ -347,7 +357,11 @@ export class Link extends EventEmitter {
    *
    * @return {Link|null}
    */
-  walk(steps: string[], stop: number = steps.length, i: number = 0): Link | null {
+  walk(
+    steps: string[],
+    stop: number = steps.length,
+    i: number = 0
+  ): Link | null {
     if (i >= steps.length) return this;
     if (i >= stop) return this;
 
@@ -366,7 +380,9 @@ export class Link extends EventEmitter {
   }
 
   syncSteps() {
-    this.steps = this.parent ? this.parent.steps.concat([this.name]) : [this.name];
+    this.steps = this.parent
+      ? this.parent.steps.concat([this.name])
+      : [this.name];
   }
 }
 
@@ -412,7 +428,7 @@ export class File {
     this.fd = fd;
   }
 
-  getString(encoding = 'utf8'): string {
+  getString(encoding = "utf8"): string {
     return this.node.getString();
   }
 
@@ -444,16 +460,26 @@ export class File {
     return Stats.build(this.node) as Stats<number>;
   }
 
-  write(buf: Buffer, offset: number = 0, length: number = buf.length, position?: number): number {
-    if (typeof position !== 'number') position = this.position;
+  write(
+    buf: Buffer,
+    offset: number = 0,
+    length: number = buf.length,
+    position?: number
+  ): number {
+    if (typeof position !== "number") position = this.position;
     if (this.flags & O_APPEND) position = this.getSize();
     const bytes = this.node.write(buf, offset, length, position);
     this.position = position + bytes;
     return bytes;
   }
 
-  read(buf: Buffer | Uint8Array, offset: number = 0, length: number = buf.byteLength, position?: number): number {
-    if (typeof position !== 'number') position = this.position;
+  read(
+    buf: Buffer | Uint8Array,
+    offset: number = 0,
+    length: number = buf.byteLength,
+    position?: number
+  ): number {
+    if (typeof position !== "number") position = this.position;
     const bytes = this.node.read(buf, offset, length, position);
     this.position = position + bytes;
     return bytes;
