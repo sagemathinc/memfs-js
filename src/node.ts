@@ -309,8 +309,17 @@ export class Link extends EventEmitter {
     return link;
   }
 
+  private childrenChanged() {
+    // When a file or directory gets created, mtime and ctime should
+    // get updated.  See https://github.com/sagemathinc/memfs-js/issues/4
+    // atime isn't updated since access isn't happening (?).  I'm just
+    // copying what happens on MacOS natively.
+    this.node.mtime = this.node.ctime = new Date();
+  }
+
   setChild(name: string, link: Link = new Link(this.vol, this, name)): Link {
     this.children[name] = link;
+    this.childrenChanged();
     link.parent = this;
     this.length++;
 
@@ -321,6 +330,7 @@ export class Link extends EventEmitter {
 
   deleteChild(link: Link) {
     delete this.children[link.getName()];
+    this.childrenChanged();
     this.length--;
 
     this.emit("child:delete", link, this);
