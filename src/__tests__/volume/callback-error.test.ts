@@ -1,4 +1,4 @@
-jest.useFakeTimers('modern');
+jest.useFakeTimers();
 
 // Fixes https://github.com/streamich/memfs/issues/542
 it('should throw error instead of callback', () => {
