@@ -1,6 +1,6 @@
 # memfs
 
-This is a fork of https://www.npmjs.com/package/memfs, since there's a bunch of critical bugs there, which aren't a priority for that project, but are a priority for me.  See https://github.com/sagemathinc/memfs-js
+This is a fork of https://www.npmjs.com/package/memfs, since there's a bunch of critical bugs there, which might not be a priority for that project, but are definitely a priority for me (though I'm sending PR's).  See https://github.com/sagemathinc/memfs-js
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "name": "memfs-js",
+  "name": "@cowasm/memfs",
   "version": "3.4.8",
   "description": "In-memory file-system with Node's fs API.",
   "main": "lib/index.js",
